@@ -8,14 +8,20 @@ import java.net.SocketException;
  
 public class Server {
     
-    static Socket client = new Socket();
-    
     public static void main(String[] args) throws Exception{
-        ServerSocket soc = new ServerSocket(9027);  //포트 9027 
-        System.out.println("Server Start");
-        client = soc.accept();                       //accept client
+        ServerSocket soc = new ServerSocket(9030);  //포트 9030
         
-        try{
+        System.out.println("Server Start");
+        System.out.println("Waiting for Client");
+        
+        download_from_client(soc);
+    }
+    
+    public static void download_from_client(ServerSocket soc) throws Exception{
+    	try{
+            Socket client = new Socket();
+            client = soc.accept();                       //accept client
+
 	        System.out.println("client accept!");
 	        InputStream in = null;                       
 	        FileOutputStream out = null;
@@ -44,11 +50,10 @@ public class Server {
 	        
         }
         catch(SocketException e){ // when socket connection is disconnected.
-        	System.out.println("Socket connection is disconnected");
+        	System.out.println("Socket is disconnected");
         	System.out.println("Exception: " + e);
         	
-        	soc.close();
-        	System.out.println("Please restart Server and Client.");
+        	download_from_client(soc);
         }
     }
  
