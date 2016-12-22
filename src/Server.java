@@ -43,7 +43,7 @@ public class Server {
 		            out.write(buffer,0,len);
 		        }
 		        
-		        System.out.println("Filename:" + filename + ", " +datas+" kbytes of file is received.");
+		        System.out.println("Filename: " + filename + ", " +datas+" kbytes of file is received.");
 		        out.flush();
 		        out.close();
 	        }
