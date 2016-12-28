@@ -29,23 +29,27 @@ public class Server {
 	        DataInputStream din = new DataInputStream(in);  
 	        
 	        while(true){
-	            int data = din.readInt();           
+	            int fsize = din.readInt();  
+		        System.out.println(fsize);
+
 		        String filename = din.readUTF();            
-		        File file = new File(filename);             
+		        File file = new File(filename);    
+		        System.out.println(filename);
 		        out = new FileOutputStream(file);          
 		 
-		        int datas = data;                            
 		        byte[] buffer = new byte[1024];       
-		        int len;                               
+		        int readsize = 0;                               
 		          
-		        for(;data>0;data--){                   
-		            len = in.read(buffer);
-		            out.write(buffer,0,len);
+		        while (readsize < fsize){
+		        	int rsize = in.read(buffer);
+		        	out.write(buffer, 0, rsize);
+		        	readsize += rsize;
 		        }
 		        
-		        System.out.println("Filename: " + filename + ", " +datas+" kbytes of file is received.");
+		        System.out.println("Filename: " + filename + ", " +fsize+" kbytes of file is received.");
 		        out.flush();
 		        out.close();
+		    
 	        }
 	        
         }
