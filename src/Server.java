@@ -25,21 +25,25 @@ public class Server {
 	        System.out.println("client accept!");
 	        InputStream in = null;                       
 	        FileOutputStream out = null;
+	        
+	        //get InputStream from Client 
 	        in = client.getInputStream();                
 	        DataInputStream din = new DataInputStream(in);  
 	        
 	        while(true){
+	        	//get file size
 	            int fsize = din.readInt();  
-		        System.out.println(fsize);
-
-		        String filename = din.readUTF();            
+	            //get file name 
+		        String filename = din.readUTF(); 
+		        
+		        //make a new file and get FileOutputStream to write to that file.
 		        File file = new File(filename);    
-		        System.out.println(filename);
 		        out = new FileOutputStream(file);          
 		 
 		        byte[] buffer = new byte[1024];       
 		        int readsize = 0;                               
 		          
+		        //read data from InputStream of Client and write buffer to file.
 		        while (readsize < fsize){
 		        	int rsize = in.read(buffer);
 		        	out.write(buffer, 0, rsize);
