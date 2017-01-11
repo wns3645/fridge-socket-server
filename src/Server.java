@@ -1,7 +1,4 @@
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
@@ -11,8 +8,8 @@ public class Server {
     public static void main(String[] args) throws Exception{
         ServerSocket soc = new ServerSocket(9030);  //Æ÷Æ® 9030
         
-        System.out.println("Server Start");
-        System.out.println("Waiting for Client");
+        System.out.println("Server Start!");
+        System.out.println("Waiting for Client!");
         
         download_from_client(soc);
     }
@@ -54,7 +51,13 @@ public class Server {
 		        out.flush();
 		        out.close();
 		    
+		        try {
+					Runtime.getRuntime().exec("cp "+filename+" ../public/images/latest_view.png");
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 	        }
+	        
 	        
         }
         catch(SocketException e){ // when socket connection is disconnected.
